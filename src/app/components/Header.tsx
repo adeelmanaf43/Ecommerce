@@ -9,7 +9,9 @@ export default function NavBar() {
   return (
     <div>
       <div className="flex justify-between items-center">
-        <Image src={Logo} alt="logo" className="w-40" />
+        <Link href={"/"}>
+          <Image src={Logo} alt="logo" className="w-40" />
+        </Link>
         <button
           onClick={() => {
             setShowNav(!showNav);
@@ -20,16 +22,16 @@ export default function NavBar() {
         </button>
         <ul className="lg:flex hidden gap-x-10">
           <li className="text-lg">
-            <Link href={"/"}>Female</Link>
+            <Link href={"/female"}>Female</Link>
           </li>
           <li className="text-lg">
-            <Link href={"/"}>Male</Link>
+            <Link href={"/male"}>Male</Link>
           </li>
           <li className="text-lg">
-            <Link href={"/"}>Kids</Link>
+            <Link href={"/kids"}>Kids</Link>
           </li>
           <li className="text-lg">
-            <Link href={"/"}>React</Link>
+            <Link href={"/products"}>All Products</Link>
           </li>
         </ul>
         <input
@@ -52,10 +54,10 @@ function MobileNav() {
       <div className="flex h-12 w-12 bg-gray-300 rounded-full items-center justify-center">
         <ShoppingCart className="h-6 w-6" />
       </div>
-      <Link href={"/"}>Female</Link>
-      <Link href={"/"}>Male</Link>
-      <Link href={"/"}>Kids</Link>
-      <Link href={"/"}>React</Link>
+      <Link href={"/female"}>Female</Link>
+      <Link href={"/male"}>Male</Link>
+      <Link href={"/kids"}>Kids</Link>
+      <Link href={"/products"}>All Product</Link>
     </div>
   );
 }

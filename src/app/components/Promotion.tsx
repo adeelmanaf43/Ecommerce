@@ -23,7 +23,7 @@ export default function Promotion() {
         <p className="text-lg mt-8">USE PROMO CODE</p>
         <p className="bg-gray-500 py-1 px-8">DINEWEEKANDSALE</p>
       </div>
-      <div className="lg:col-start-2  lg:row-start-3 lg:row-end-5 sm:col-start-1 sm:row-start-5 bg-[#F8D7D7] px-2 py-3">
+      <div className="lg:col-start-2  lg:row-start-3 lg:row-end-5 sm:col-start-1 sm:row-start-5 bg-[#F8D7D7] px-2 pt-3">
         <p>Flex Sweatshirt</p>
         <p>
           <span className="line-through"> $100.00</span> <strong>$75.00</strong>
@@ -31,7 +31,7 @@ export default function Promotion() {
         </p>
         <Image className="mx-auto" src={Event2} alt="Event2" />
       </div>
-      <div className="lg:col-start-3 lg:row-start-3 lg:row-end-5 sm:col-start-2 sm:row-start-5 bg-gray-300 px-2 py-3">
+      <div className="lg:col-start-3 lg:row-start-3 lg:row-end-5 sm:col-start-2 sm:row-start-5 bg-gray-300 px-2 pt-3">
         <p>Flex Push Button Bomber</p>
         <p className="text-">
           <span className="line-through">$225.00</span> <strong>$190.00</strong>

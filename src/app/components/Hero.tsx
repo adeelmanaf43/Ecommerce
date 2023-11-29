@@ -7,7 +7,7 @@ import Image from "next/image";
 import { ShoppingCart } from "lucide-react";
 export default function Hero() {
   return (
-    <div className="flex items-center mt-8">
+    <div className="flex items-center mt-24">
       <div className="flex flex-col gap-y-20 w-full lg:w-1/2">
         <div className="left flex flex-col gap-y-10 items-start">
           <button className="bg-sky-100 text-blue-600 py-2 px-5 rounded text-bold">
