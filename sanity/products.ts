@@ -11,6 +11,15 @@ export const product = {
       type: "string",
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: {
+        source: "title",
+        maxLength: 50,
+      },
+    }),
+    defineField({
       name: "typee",
       title: "Product Type",
       type: "string",

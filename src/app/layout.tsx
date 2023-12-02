@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Header from "./components/Header";
+import Nav from "./components/Nav";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "./components/Footer";
@@ -19,10 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`inter.className mx-8 md:mx-16 mt-8`}>
-        <Header />
+        <Nav />
         {children}
+        <Footer />
       </body>
-      <Footer />
     </html>
   );
 }

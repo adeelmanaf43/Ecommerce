@@ -7,6 +7,25 @@ import { ShoppingCart } from "lucide-react";
 
 export default function ProductPage({ data }: any) {
   const [quantity, setQuantity] = useState(1);
+  const handleAddToCart = async () => {
+    try {
+      await fetch("/api/cart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          product_id: data._id,
+          product_title: data.title,
+          product_price: data.price,
+          product_quantity: quantity,
+          image_url: urlForImage(data.image).url(),
+        }),
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="mt-20">
@@ -61,7 +80,10 @@ export default function ProductPage({ data }: any) {
             </button>
           </div>
           <div className="flex gap-x-5 items-center">
-            <button className="bg-black text-white px-5 py-2 flex">
+            <button
+              onClick={() => handleAddToCart()}
+              className="bg-black text-white px-5 py-2 flex"
+            >
               <ShoppingCart className="mr-3" />
               Add to Cart
             </button>

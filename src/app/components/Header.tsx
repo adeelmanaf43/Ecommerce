@@ -4,8 +4,9 @@ import Image from "next/image";
 import Logo from "/public/Logo.webp";
 import Link from "next/link";
 import { ShoppingCart, AlignRight, X } from "lucide-react";
-export default function NavBar() {
+export default async function NavBar({ itemCount }: any) {
   const [showNav, setShowNav] = useState(false);
+  const [itemCOunt, setItemCount] = useState(0);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -39,9 +40,15 @@ export default function NavBar() {
           className="border rounded-lg w-[30%] px-2 text-sm py-1 hidden lg:block"
           type="text"
         />
-        <div className="h-10 w-10 rounded-full bg-gray-300 lg:flex justify-center items-center hidden">
+        <Link
+          href={"/cart"}
+          className="h-10 w-10 rounded-full bg-gray-300 lg:flex justify-center items-center hidden"
+        >
           <ShoppingCart className="h-6 w-6" />
-        </div>
+          <p className="absolute text-white bg-red-500 px-1 text-xs rounded-full ml-3 mb-6">
+            {itemCount}
+          </p>
+        </Link>
       </div>
       {showNav && <MobileNav />}
     </div>

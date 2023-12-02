@@ -8,13 +8,19 @@ interface IProduct {
   typee: string;
   price: number;
   image: IImage;
+  slug: any;
 }
 
-export default function AllProduct({ title, typee, price, image }: IProduct) {
-  const formattedTitle = title.replace(/\s+/g, "-");
+export default function AllProduct({
+  title,
+  typee,
+  price,
+  image,
+  slug,
+}: IProduct) {
   return (
     <div className="flex flex-col items-center lg:items-start">
-      <Link href={`/products/${formattedTitle}`}>
+      <Link href={`/product/${slug.current}`}>
         <Image
           className="max-h-[400px] max-w-[400px]"
           src={urlForImage(image).url()}

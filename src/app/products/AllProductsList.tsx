@@ -7,11 +7,12 @@ export default async function AllProductsList({ data }: any) {
       {data.map((item: any) => {
         return (
           <AllProduct
-            key={item.id}
+            key={item.title}
             title={item.title}
             price={item.price}
             typee={item.typee}
             image={item.image}
+            slug={item.slug}
           />
         );
       })}

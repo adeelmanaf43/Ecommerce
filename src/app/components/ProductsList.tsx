@@ -1,6 +1,5 @@
 "use client";
 import Product from "./Product";
-import Slider from "react-slick";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 export default function ProductsList({ data }: any) {
@@ -28,7 +27,7 @@ export default function ProductsList({ data }: any) {
         }}
       >
         {data.map((item: any) => (
-          <SwiperSlide className="hover:scale-105 mb-10 ml-5">
+          <SwiperSlide key={item.title} className="hover:scale-105 mb-10 ml-5">
             <Product
               title={item.title}
               price={item.price}
