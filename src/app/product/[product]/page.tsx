@@ -15,7 +15,7 @@ export default async function Page({ params }: { params: any }) {
   const data = await getSingleProduct(params.product);
   console.log(data);
   return (
-    <div className="mt-20">
+    <div className="my-20">
       <ProductPage data={data} />
     </div>
   );

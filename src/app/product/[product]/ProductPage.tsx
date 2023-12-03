@@ -4,8 +4,10 @@ import { urlForImage } from "../../../../sanity/lib/image";
 import Image from "next/image";
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
 
 export default function ProductPage({ data }: any) {
+  const { userId } = useAuth();
   const [quantity, setQuantity] = useState(1);
   const handleAddToCart = async () => {
     try {
@@ -15,6 +17,7 @@ export default function ProductPage({ data }: any) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          user_id: userId,
           product_id: data._id,
           product_title: data.title,
           product_price: data.price,

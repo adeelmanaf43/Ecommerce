@@ -1,4 +1,5 @@
 "use client";
+import { UserButton } from "@clerk/nextjs";
 import { useState } from "react";
 import Image from "next/image";
 import Logo from "/public/Logo.webp";
@@ -40,6 +41,7 @@ export default async function NavBar({ itemCount }: any) {
           className="border rounded-lg w-[30%] px-2 text-sm py-1 hidden lg:block"
           type="text"
         />
+        <UserButton afterSignOutUrl="/" />
         <Link
           href={"/cart"}
           className="h-10 w-10 rounded-full bg-gray-300 lg:flex justify-center items-center hidden"

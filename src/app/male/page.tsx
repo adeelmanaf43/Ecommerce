@@ -3,7 +3,7 @@ import { getMaleProductData } from "@/lib/data";
 export default async function Page() {
   const maleData = await getMaleProductData();
   return (
-    <div>
+    <div className="my-20">
       <AllProductsList data={maleData} />
     </div>
   );

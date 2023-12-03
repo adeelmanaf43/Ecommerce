@@ -16,7 +16,6 @@ export default async function Home() {
       <ProductsList data={data} />
       <Section />
       <NewsLetter />
-      <Contacts />
     </div>
   );
 }
