@@ -1,12 +1,19 @@
+"use client";
+import { useEffect, useState } from "react";
 import NavBar from "./Header";
-import { cookies } from "next/headers";
+import { useAuth } from "@clerk/nextjs";
+import { flag } from "../product/[product]/ProductPage";
+export default function Nav() {
+  console.log("Flag value", flag);
+  const [count, setCount] = useState(0);
+  const { userId } = useAuth();
 
-export default async function Nav() {
-  const setCookies = cookies();
-  const user_id = setCookies.get("user_id")?.value as string;
-  const res2 = await fetch(
-    `http://localhost:3000/api/cart_number?user_id=${user_id}`
-  );
-  const itemCount = await res2.json();
-  return <NavBar itemCount={itemCount.res} />;
+  useEffect(() => {
+    fetch(`http://localhost:3000/api/cart_number?user_id=${userId}`)
+      .then((res) => res.json())
+      .then((val) => {
+        setCount(val.res);
+      });
+  }, [flag]);
+  return <NavBar itemCount={count} />;
 }

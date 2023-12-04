@@ -5,9 +5,8 @@ import Image from "next/image";
 import Logo from "/public/Logo.webp";
 import Link from "next/link";
 import { ShoppingCart, AlignRight, X } from "lucide-react";
-export default async function NavBar({ itemCount }: any) {
+export default function NavBar({ itemCount }: any) {
   const [showNav, setShowNav] = useState(false);
-  const [itemCOunt, setItemCount] = useState(0);
   return (
     <div>
       <div className="flex justify-between items-center">

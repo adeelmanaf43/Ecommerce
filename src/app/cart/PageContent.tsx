@@ -4,12 +4,46 @@ import Image from "next/image";
 import { useAuth, SignInButton } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { ShoppingBag, Trash2 } from "lucide-react";
+
 export default function PageContent() {
   const { userId, isSignedIn } = useAuth();
   const [state, setState] = useState(false);
   const [products, setProducts] = useState<any>(null);
 
-  console.log("Products", products);
+  const handleQuantityChange = (product_title: string, newQuantity: number) => {
+    const updatedProducts = products.map((item: any) => {
+      if (item.product_title === product_title) {
+        return { ...item, product_quantity: newQuantity };
+      } else {
+        return item;
+      }
+    });
+    setProducts(updatedProducts);
+  };
+
+  const handleUpdate = async (
+    product_title: string,
+    product_price: number,
+    product_quantity: number,
+    total_price: number
+  ) => {
+    try {
+      await fetch("/api/cart", {
+        method: "PUT",
+        body: JSON.stringify({
+          user_id: userId,
+          product_title: product_title,
+          product_price: product_price,
+          product_quantity: product_quantity,
+          total_price: total_price,
+        }),
+      });
+      setState(!state);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const handleDelete = async (product_title: string) => {
     try {
       await fetch("/api/cart", {
@@ -31,7 +65,7 @@ export default function PageContent() {
     <div>
       {isSignedIn ? (
         <div className="my-20">
-          {products?.length !== 0 ? (
+          {products && products.length !== 0 ? (
             <div className="flex flex-col gap-y-6">
               <h2 className="font-bold text-2xl">Shopping Cart</h2>
               {products.map((item: any) => (
@@ -45,8 +79,43 @@ export default function PageContent() {
                   />
                   <div className="flex flex-col gap-y-3">
                     <h2 className=" text-2xl">{item.product_title}</h2>
-                    <h2 className="text-2xl">{item.product_price}</h2>
-                    <h2 className="text-2xl">{item.product_quantity}</h2>
+                    <h2 className="text-2xl">{item.total_price}</h2>
+                    <div className="flex gap-x-4">
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.product_title,
+                            item.product_quantity - 1
+                          )
+                        }
+                      >
+                        -
+                      </button>
+                      <h2 className="text-2xl">{item.product_quantity}</h2>
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(
+                            item.product_title,
+                            item.product_quantity + 1
+                          )
+                        }
+                      >
+                        +
+                      </button>
+                    </div>
+                    <button
+                      onClick={() =>
+                        handleUpdate(
+                          item.product_title,
+                          item.product_price,
+                          item.product_quantity,
+                          item.total_price
+                        )
+                      }
+                      className="bg-black text-white px-5 py-2"
+                    >
+                      Update
+                    </button>
                   </div>
                   <button
                     onClick={() => handleDelete(item.product_title)}

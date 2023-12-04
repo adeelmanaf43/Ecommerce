@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
+export let flag = false;
 
 export default function ProductPage({ data }: any) {
   const { userId } = useAuth();
@@ -22,9 +23,12 @@ export default function ProductPage({ data }: any) {
           product_title: data.title,
           product_price: data.price,
           product_quantity: quantity,
+          total_price: data.price * quantity,
           image_url: urlForImage(data.image).url(),
         }),
       });
+      flag = !flag;
+      console.log("Flag value while Posting", flag);
     } catch (error) {
       console.log(error);
     }
@@ -70,6 +74,7 @@ export default function ProductPage({ data }: any) {
             <p className="font-bold mr-5">Quantity:</p>
             <button
               onClick={() => setQuantity(quantity - 1)}
+              disabled={quantity <= 1}
               className="bg-gray-200 border border-gray-200 px-3 py-1 rounded-full"
             >
               -
@@ -90,7 +95,7 @@ export default function ProductPage({ data }: any) {
               <ShoppingCart className="mr-3" />
               Add to Cart
             </button>
-            <h2 className="text-2xl font-bold">${data.price}.00</h2>
+            <h2 className="text-2xl font-bold">${data.price * quantity}.00</h2>
           </div>
         </div>
       </div>

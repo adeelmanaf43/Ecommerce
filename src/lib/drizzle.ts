@@ -9,6 +9,7 @@ export const cartTable = pgTable("hackathon_cart", {
   product_title: varchar("product_title").notNull(),
   product_quantity: integer("product_quantity").notNull(),
   product_price: integer("product_price").notNull(),
+  total_price: integer("total_price").notNull(),
   image_url: varchar("image_url").notNull(),
 });
 

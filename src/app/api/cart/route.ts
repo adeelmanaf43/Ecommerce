@@ -26,12 +26,13 @@ export const POST = async (request: NextRequest) => {
         product_title: req.product_title,
         product_price: req.product_price,
         product_quantity: req.product_quantity,
+        total_price: req.total_price,
         image_url: req.image_url,
       })
       .onConflictDoUpdate({
-        target: [cartTable.product_title],
+        target: [cartTable.product_title, cartTable.user_id],
         set: {
-          product_price: req.product_price,
+          total_price: req.total_price,
           product_quantity: req.product_quantity,
         },
       })
@@ -60,6 +61,38 @@ export const DELETE = async (request: NextRequest) => {
       });
     } else {
       return NextResponse.json({ message: "Missing required field" });
+    }
+  } catch (error) {
+    console.log(error);
+    return NextResponse.json({ message: "Something went wrong" });
+  }
+};
+
+export const PUT = async (request: NextRequest) => {
+  const req = await request.json();
+  try {
+    if (
+      req.user_id &&
+      req.product_title &&
+      req.product_price &&
+      req.product_quantity &&
+      req.total_price
+    ) {
+      const res = await db
+        .update(cartTable)
+        .set({
+          product_quantity: req.product_quantity,
+          total_price: req.product_price * req.product_quantity,
+        })
+        .where(
+          and(
+            eq(cartTable.user_id, req.user_id),
+            eq(cartTable.product_title, req.product_title)
+          )
+        );
+      return NextResponse.json({ message: "Item updated successfully" });
+    } else {
+      return NextResponse.json({ message: "Missing Required fields" });
     }
   } catch (error) {
     console.log(error);
