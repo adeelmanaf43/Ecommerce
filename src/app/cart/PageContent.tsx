@@ -60,7 +60,7 @@ export default function PageContent() {
     fetch(`/api/cart?user_id=${userId}`)
       .then((res) => res.json())
       .then((data) => setProducts(data.res));
-  }, [isSignedIn, state]);
+  }, [isSignedIn, state, userId]);
   return (
     <div>
       {isSignedIn ? (
@@ -69,7 +69,7 @@ export default function PageContent() {
             <div className="flex flex-col gap-y-6">
               <h2 className="font-bold text-2xl">Shopping Cart</h2>
               {products.map((item: any) => (
-                <div className="flex gap-x-10 max-w-2xl">
+                <div key={item._id} className="flex gap-x-10 max-w-2xl">
                   <Image
                     className="max-h-[200px] max-w-[200px] object-cover"
                     src={urlForImage(item.image_url).url()}

@@ -14,6 +14,6 @@ export default function Nav() {
       .then((val) => {
         setCount(val.res);
       });
-  }, [flag]);
+  }, [flag, userId]);
   return <NavBar itemCount={count} />;
 }
