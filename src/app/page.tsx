@@ -6,7 +6,7 @@ import ProductsList from "./components/ProductsList";
 import getProductData from "@/lib/data";
 import Section from "./components/Section";
 import NewsLetter from "./components/NewsLetter";
-import Contacts from "./components/Contacts";
+import FlagContextProvider from "./components/FlagContext";
 export default async function Home() {
   const data = await getProductData();
   return (

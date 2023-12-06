@@ -5,6 +5,7 @@ import "./globals.css";
 import Footer from "./components/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
 import Contacts from "./components/Contacts";
+import FlagContextProvider from "./components/FlagContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,14 +21,16 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
-        <body className={`inter.className mx-8 md:mx-16 mt-8`}>
-          <Nav />
-          {children}
-          <Contacts />
-          <Footer />
-        </body>
-      </html>
+      <FlagContextProvider>
+        <html lang="en">
+          <body className={`inter.className mx-8 md:mx-16 mt-8`}>
+            <Nav />
+            {children}
+            <Contacts />
+            <Footer />
+          </body>
+        </html>
+      </FlagContextProvider>
     </ClerkProvider>
   );
 }

@@ -5,11 +5,15 @@ import Image from "next/image";
 import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { useAuth } from "@clerk/nextjs";
-export let flag = false;
+import { UseFlagContext } from "@/app/components/FlagContext";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function ProductPage({ data }: any) {
   const { userId } = useAuth();
   const [quantity, setQuantity] = useState(1);
+  const { flag, setFlag } = UseFlagContext();
+  console.log("Flag Context Value while posting item", flag);
   const handleAddToCart = async () => {
     try {
       await fetch("/api/cart", {
@@ -27,8 +31,7 @@ export default function ProductPage({ data }: any) {
           image_url: urlForImage(data.image).url(),
         }),
       });
-      flag = !flag;
-      console.log("Flag value while Posting", flag);
+      toast.success(`${data.title} added to the cart`);
     } catch (error) {
       console.log(error);
     }
@@ -89,7 +92,10 @@ export default function ProductPage({ data }: any) {
           </div>
           <div className="flex gap-x-5 items-center">
             <button
-              onClick={() => handleAddToCart()}
+              onClick={() => {
+                setFlag(!flag);
+                handleAddToCart();
+              }}
               className="bg-black text-white px-5 py-2 flex"
             >
               <ShoppingCart className="mr-3" />

@@ -8,7 +8,8 @@ export const GET = async (request: NextRequest) => {
     const res = (
       await db.select().from(cartTable).where(eq(cartTable.user_id, user_id))
     ).length;
-    return NextResponse.json({ res });
+    console.log("Response from api", res);
+    return NextResponse.json(res);
   } catch (error) {
     console.log(error);
   }

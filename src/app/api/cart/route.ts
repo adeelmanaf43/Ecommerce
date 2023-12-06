@@ -37,6 +37,7 @@ export const POST = async (request: NextRequest) => {
         },
       })
       .returning();
+    console.log("Post Api call");
     return NextResponse.json({ res });
   } catch (error) {
     console.log(error);

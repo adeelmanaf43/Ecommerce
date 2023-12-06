@@ -1,12 +1,38 @@
 "use client";
-import { UserButton } from "@clerk/nextjs";
-import { useState } from "react";
+import { UserButton, useAuth } from "@clerk/nextjs";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Logo from "/public/Logo.webp";
 import Link from "next/link";
+import { UseFlagContext } from "./FlagContext";
 import { ShoppingCart, AlignRight, X } from "lucide-react";
-export default function NavBar({ itemCount }: any) {
+
+export default function NavBar() {
+  const { userId } = useAuth();
   const [showNav, setShowNav] = useState(false);
+  const [count, setCount] = useState(0);
+  const { flag } = UseFlagContext();
+  console.log("Flag Contenxt Value in Header", flag);
+
+  async function fetchCartCount() {
+    try {
+      const res = await fetch(
+        `http://localhost:3000/api/cart_number?user_id=${userId}`
+      );
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      console.log("Error while fetching cart count", error);
+    }
+  }
+
+  useEffect(() => {
+    async function updateCart() {
+      const val = await fetchCartCount();
+      setCount(val);
+    }
+    updateCart();
+  }, [userId, flag, count]);
   return (
     <div>
       <div className="flex justify-between items-center">
@@ -47,7 +73,7 @@ export default function NavBar({ itemCount }: any) {
         >
           <ShoppingCart className="h-6 w-6" />
           <p className="absolute text-white bg-red-500 px-1 text-xs rounded-full ml-3 mb-6">
-            {itemCount}
+            {count}
           </p>
         </Link>
       </div>

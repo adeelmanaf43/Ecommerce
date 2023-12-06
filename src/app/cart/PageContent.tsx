@@ -4,11 +4,16 @@ import Image from "next/image";
 import { useAuth, SignInButton } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 import { ShoppingBag, Trash2 } from "lucide-react";
+import { UseFlagContext } from "../components/FlagContext";
+import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 export default function PageContent() {
   const { userId, isSignedIn } = useAuth();
   const [state, setState] = useState(false);
   const [products, setProducts] = useState<any>(null);
+  const { flag, setFlag } = UseFlagContext();
+  console.log("Flagg Context value while deleting an item", flag);
 
   const handleQuantityChange = (product_title: string, newQuantity: number) => {
     const updatedProducts = products.map((item: any) => {
@@ -39,6 +44,7 @@ export default function PageContent() {
         }),
       });
       setState(!state);
+      toast.success(`${product_title} updated successfully`);
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +57,8 @@ export default function PageContent() {
         body: JSON.stringify({ user_id: userId, product_title: product_title }),
       });
       setState(!state);
+      setFlag(!flag);
+      toast.success(`${product_title} deleted successfully`);
     } catch (error) {
       console.log(error);
     }
@@ -77,7 +85,7 @@ export default function PageContent() {
                     height={200}
                     width={200}
                   />
-                  <div className="flex flex-col gap-y-3">
+                  <div className="flex flex-col gap-y-3 items-start">
                     <h2 className=" text-2xl">{item.product_title}</h2>
                     <h2 className="text-2xl">{item.total_price}</h2>
                     <div className="flex gap-x-4">
