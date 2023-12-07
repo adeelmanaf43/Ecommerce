@@ -92,9 +92,9 @@ export default function ProductPage({ data }: any) {
           </div>
           <div className="flex gap-x-5 items-center">
             <button
-              onClick={() => {
+              onClick={async function () {
+                await handleAddToCart();
                 setFlag(!flag);
-                handleAddToCart();
               }}
               className="bg-black text-white px-5 py-2 flex"
             >

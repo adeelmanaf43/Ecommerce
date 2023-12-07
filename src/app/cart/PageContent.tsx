@@ -112,21 +112,23 @@ export default function PageContent() {
                       </button>
                     </div>
                     <button
-                      onClick={() =>
-                        handleUpdate(
+                      onClick={async function () {
+                        await handleUpdate(
                           item.product_title,
                           item.product_price,
                           item.product_quantity,
                           item.total_price
-                        )
-                      }
+                        );
+                      }}
                       className="bg-black text-white px-5 py-2"
                     >
                       Update
                     </button>
                   </div>
                   <button
-                    onClick={() => handleDelete(item.product_title)}
+                    onClick={async function () {
+                      await handleDelete(item.product_title);
+                    }}
                     className="ml-auto"
                   >
                     <Trash2 />
